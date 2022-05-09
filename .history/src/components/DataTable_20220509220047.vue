@@ -56,7 +56,7 @@
             <!-- Table pagination -->
             <div class="pagination">
                 <div class="entries-number">
-                    <span>Show {{ (tablePageLimit > users.length) ? users.length : tablePageLimit }} of {{ users.length }} entries</span>
+                    <span>Show {{ tablePageLimit }} of {{ users.length }} entries</span>
                 </div>
                 <ul class="pages-list d-flex justify-content-start align-items-center gap-2">
                     <!-- li pagination button will be here -->
@@ -106,6 +106,7 @@ export default {
 
             // Append response data to users array:
             this.users = response.data;
+            console.log(response.data);
 
             // Get insert data into users array duration time:
             const duration = performance.now() - startTime;

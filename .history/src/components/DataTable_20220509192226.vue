@@ -4,28 +4,13 @@
             <span class="title">Users</span>
         </div>
 
-        <div class="head">
-            <!-- Search input -->
-            <div class="search">
-                <div class="form-group">
-                    <div class="icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-                    <input type="text" class="form-control" placeholder="search..." v-model="usersSearch">
+        <!-- Search input -->
+        <div class="search">
+            <div class="form-group position-relative">
+                <div class="icon position-absolute d-flex justify-content-center align-items-center">
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </div>
-            </div>
-
-            <!-- filters -->
-            <div class="filters">
-                <div class="rows-number">
-                    <select class="form-select" aria-label="Default select example" @change="onChange($event)">
-                        <option value="10" selected>10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="10000000">All</option>
-                    </select>
-                </div>
+                <input type="text" class="form-control" placeholder="search..." v-model="usersSearch">
             </div>
         </div>
 
@@ -36,14 +21,16 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Description</th>
+                        <!-- <th scope="col">Email</th>
+                        <th scope="col">Phone</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="user in filteredUsers.slice(start, end)" :key="user.id">
-                        <td><span>{{ user.id }}</span></td>
-                        <td><span>{{ user.title }}</span></td>
-                        <td><span>{{ user.body }}</span></td>
+                    <tr v-for="user in filteredUserss.slice(start, end)" :key="user.id">
+                    <td><span class="f-s-14 f-w-400 dark-color">{{ user.id }}</span></td>
+                        <td><span class="f-s-14 f-w-400 dark-color">{{ user.title }}</span></td>
+                        <!-- <td><span class="f-s-14 f-w-400 dark-color">{{ user.email }}</span></td>
+                        <td><span class="f-s-14 f-w-400 dark-color">{{ user.phone }}</span></td> -->
                     </tr>
                 </tbody>
             </table>
@@ -55,9 +42,6 @@
             
             <!-- Table pagination -->
             <div class="pagination">
-                <div class="entries-number">
-                    <span>Show {{ (tablePageLimit > users.length) ? users.length : tablePageLimit }} of {{ users.length }} entries</span>
-                </div>
                 <ul class="pages-list d-flex justify-content-start align-items-center gap-2">
                     <!-- li pagination button will be here -->
                 </ul>
@@ -101,13 +85,13 @@ export default {
         // Get all users from "jsonplaceholder" free fake api:
         this.axios.get(`https://jsonplaceholder.typicode.com/posts`).then((response) => {
 
-            // Get insert data into users array start time:
+            // Get function start time:
             const startTime = performance.now();
 
-            // Append response data to users array:
+            // Appent response data to users array:
             this.users = response.data;
 
-            // Get insert data into users array duration time:
+            // Get function duration time:
             const duration = performance.now() - startTime;
             
             setTimeout(() => {
@@ -172,25 +156,15 @@ export default {
         });
     },
     computed: {
-        // Filter users by (title and body):
+        // Filter users by (name, email and phone number):
         filteredUsers() {
-            return this.users.filter((user) => {
-                return this.usersSearch.toLowerCase().split(' ').every(v => user.title.toLowerCase().includes(v)) || 
-                this.usersSearch.toLowerCase().split(' ').every(v => user.body.toLowerCase().includes(v));
+            return this.users.filter((patient) => {
+                return this.usersSearch.toLowerCase().split(' ').every(v => patient.name.toLowerCase().includes(v)) || 
+                this.usersSearch.toLowerCase().split(' ').every(v => patient.email.toLowerCase().includes(v)) || 
+                this.usersSearch.toLowerCase().split(' ').every(v => patient.phone.toLowerCase().includes(v));
             });
         }
     },
-    methods: {
-        onChange(event) {
-            console.log(event.target.value);
-            if(event.target.value == 10000000) {
-                this.tablePageLimit = this.users.length;
-                this.end = this.users.length;
-            }
-            this.tablePageLimit = event.target.value;
-            this.end = event.target.value;
-        },
-    }
 }
 </script>
 

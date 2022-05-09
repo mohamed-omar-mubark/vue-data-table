@@ -106,6 +106,7 @@ export default {
 
             // Append response data to users array:
             this.users = response.data;
+            console.log(response.data);
 
             // Get insert data into users array duration time:
             const duration = performance.now() - startTime;

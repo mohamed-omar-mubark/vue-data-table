@@ -18,13 +18,7 @@
             <!-- filters -->
             <div class="filters">
                 <div class="rows-number">
-                    <select class="form-select" aria-label="Default select example" @change="onChange($event)">
-                        <option value="10" selected>10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                        <option value="10000000">All</option>
-                    </select>
+                    
                 </div>
             </div>
         </div>
@@ -56,7 +50,7 @@
             <!-- Table pagination -->
             <div class="pagination">
                 <div class="entries-number">
-                    <span>Show {{ (tablePageLimit > users.length) ? users.length : tablePageLimit }} of {{ users.length }} entries</span>
+                    <span>Show {{ tablePageLimit }} of {{ users.length }} entries</span>
                 </div>
                 <ul class="pages-list d-flex justify-content-start align-items-center gap-2">
                     <!-- li pagination button will be here -->
@@ -106,6 +100,7 @@ export default {
 
             // Append response data to users array:
             this.users = response.data;
+            console.log(response.data);
 
             // Get insert data into users array duration time:
             const duration = performance.now() - startTime;
@@ -180,17 +175,6 @@ export default {
             });
         }
     },
-    methods: {
-        onChange(event) {
-            console.log(event.target.value);
-            if(event.target.value == 10000000) {
-                this.tablePageLimit = this.users.length;
-                this.end = this.users.length;
-            }
-            this.tablePageLimit = event.target.value;
-            this.end = event.target.value;
-        },
-    }
 }
 </script>
 

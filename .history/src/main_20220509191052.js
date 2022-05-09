@@ -4,9 +4,12 @@ import App from "./App.vue";
 // Font Awesome
 import "@fortawesome/fontawesome-free/js/all";
 
-// Bootstrap
+// Bootstrap vue
 import "bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { BootstrapVue } from "bootstrap-vue";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+Vue.use(BootstrapVue);
 
 // Axios
 import axios from "axios";
